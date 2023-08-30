@@ -1,4 +1,5 @@
-﻿using PokemonReviewApp.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PokemonReviewApp.Data;
 using PokemonReviewApp.Interfaces;
 using PokemonReviewApp.Models;
 
@@ -14,6 +15,18 @@ namespace PokemonReviewApp.Repository
         public bool CoutryExists(int id)
         {
             return _dataContext.Countries.Any(c => c.Id == id);
+        }
+
+        public bool CreateCountry(Country country)
+        {
+            _dataContext.Add(country);
+            return Save();
+        }
+
+        public bool DeleteCountry(Country country)
+        {
+            _dataContext.Remove(country);
+            return Save();
         }
 
         public ICollection<Country> GetCountries()
@@ -37,6 +50,18 @@ namespace PokemonReviewApp.Repository
         {
             return _dataContext.Owners.Where(o=>o.Country.Id==countryId).ToList();
            
+        }
+
+        public bool Save()
+        {
+            var saved = _dataContext.SaveChanges();
+            return saved > 0 ? true : false;
+        }
+
+        public bool UpdateCountry(Country country)
+        {
+            _dataContext.Update(country);
+            return Save();
         }
     }
 }
