@@ -1,6 +1,13 @@
-﻿namespace PokemonReviewApp.Interfaces
+﻿using PokemonReviewApp.Models;
+
+namespace PokemonReviewApp.Interfaces
 {
     public interface IOwner
     {
+        ICollection<Owner> GetOwners();
+        Owner GetOwner(int id);
+        ICollection<Owner> GetOwnersByPokemonId(int pokeId);
+        ICollection<Pokemon> GetPokemonByOwnerId(int ownerId);
+        bool isOwnerExists(int ownerId);
     }
 }
