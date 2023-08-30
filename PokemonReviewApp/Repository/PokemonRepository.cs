@@ -40,6 +40,12 @@ namespace PokemonReviewApp.Repository
 
         }
 
+        public bool DeletePokemon(Pokemon pokemon)
+        {
+            _context.Remove(pokemon);
+            return Save();
+        }
+
         public Pokemon GetPokemon(int id)
         {
             return _context.Pokemons.Where(p => p.ID == id).FirstOrDefault();
@@ -75,6 +81,12 @@ namespace PokemonReviewApp.Repository
         {
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
+        }
+
+        public bool UpdatePokemon(int ownerId, int categoryId, Pokemon pokemon)
+        {
+            _context.Update(pokemon);
+            return Save();
         }
     }
 }
